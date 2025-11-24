@@ -22,7 +22,7 @@ public class SignUpTests {
         Map<String, String> requestBody = Map.of(
                 "name", "Priti",
                 "email", uniqueEmail,
-                "phone_number", "+919676543265",
+                "phone_number", "+919526543265",
                 "password", "Test@123"
         );
 

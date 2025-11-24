@@ -15,7 +15,7 @@ public class SignInTests {
         RestAssured.baseURI = "https://outsmart-dev.outsmart-tech.com";
 
         Map<String, String> body = Map.of(
-                "identifier", "priti@gmail.com",
+                "identifier", "woxotof586@bipochub.com",
                 "password", "Test@123"
         );
 
