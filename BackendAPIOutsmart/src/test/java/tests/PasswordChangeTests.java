@@ -12,8 +12,6 @@ public class PasswordChangeTests {
     @Test
     public void passwordChangeTest() {
 
-        RestAssured.baseURI = "https://outsmart-dev.outsmart-tech.com";
-
         // LOGIN to get token
         Map<String, String> loginBody = new HashMap<>();
         loginBody.put("identifier", "woxotof586@bipochub.com");

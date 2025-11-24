@@ -15,8 +15,6 @@ public class SignOutTests {
     @Test
     public void signInAndSignOutFlow() {
 
-        RestAssured.baseURI = "https://outsmart-dev.outsmart-tech.com";
-
         // Log request / response
         RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
 

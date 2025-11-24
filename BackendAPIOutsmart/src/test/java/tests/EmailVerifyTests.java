@@ -14,8 +14,6 @@ public class EmailVerifyTests {
     @Test
     public void emailVerifyTest() {
 
-        RestAssured.baseURI = "https://outsmart-dev.outsmart-tech.com";
-
         Map<String, String> emailBody = new HashMap<>();
         emailBody.put("otp", "BmfB6a");
         emailBody.put("email", "woxotof586@bipochub.com");

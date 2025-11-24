@@ -12,8 +12,7 @@ public class SignUpTests {
     @Test(description = "Verify user signup returns 201 and success message")
     public void signUpTest() {
 
-        // Base URL
-        RestAssured.baseURI = "https://outsmart-dev.outsmart-tech.com";
+
 
         // Dynamic email so each test run uses a fresh email
         String uniqueEmail = "priti" + System.currentTimeMillis() + "@gmail.com";

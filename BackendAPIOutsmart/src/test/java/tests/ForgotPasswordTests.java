@@ -10,9 +10,6 @@ public class ForgotPasswordTests {
     @Test
     public void forgotPasswordTest() {
 
-        // Base URL
-        RestAssured.baseURI = "https://outsmart-dev.outsmart-tech.com";
-
         // Request Body
         String forgotPasswordBody = "{\"identifier\": \"woxotof586@bipochub.com\"}";
 
