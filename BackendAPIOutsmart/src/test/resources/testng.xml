@@ -9,9 +9,13 @@
 
 <test name="API Tests">
     <classes>
-        <class name="tests.SignUpTests"/>
-        <class name="tests.SignInTests"/>
 
+        <class name="tests.SignIn_SignOutTests"/>
+        <class name="tests.EmailVerifyTests"/>
+        <class name="tests.ForgotPasswordTests"/>
+        <class name="tests.PasswordChangeTests"/>
+        <class name="tests.SignUpTests"/>
+        <class name="tests.ExampleTest"/>
     </classes>
 </test>
 
