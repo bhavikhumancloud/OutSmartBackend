@@ -1,0 +1,78 @@
+# Compiled class files
+*.class
+
+# Log files
+*.log
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+*.nar
+*.zip
+*.tar.gz
+*.rar
+
+# Maven / Gradle
+target/
+build/
+!.mvn/wrapper/maven-wrapper.jar
+
+# Eclipse
+.classpath
+.project
+.settings/
+.p2/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+out/
+
+# VS Code
+.vscode/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# Windows image file caches
+Thumbs.db
+
+# dotenv
+.env
+.env.local
+.env.*.local
+
+# Temporary files
+*.tmp
+*.swp
+*~
+.tmp/
+
+# Test reports
+surefire-reports/
+failsafe-reports/
+
+# Dependency directories
+node_modules/
+
+# Coverage reports
+coverage/
+*.lcov
+
+# JetBrains Rider
+.idea/
+
+# Misc
+release.properties
+project.lock.json

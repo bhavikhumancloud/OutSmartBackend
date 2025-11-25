@@ -33,4 +33,15 @@ public class ApiClient {
                 .post(baseUrl + path)
                 .andReturn();
     }
+
+    public Response postWithHeader(String path, String header,Object body) {
+        return RestAssured
+                .given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + header)
+                .body(body)
+                .when()
+                .post(baseUrl + path)
+                .andReturn();
+    }
 }
