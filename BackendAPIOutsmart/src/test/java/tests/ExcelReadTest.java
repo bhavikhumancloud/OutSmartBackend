@@ -36,4 +36,13 @@ public class ExcelReadTest extends BaseTest {
 
         excelutil.saveExcelFile();
     }
+
+    @Test
+    public void readDataFromExcel() throws IOException {
+        excelutil.ExcelUtils(ExcelFile,"SignUp");
+        String value = excelutil.getCellData(2,0);
+        System.out.println("value is: "+value);
+    }
 }
+
+
