@@ -24,6 +24,17 @@ public class ApiClient {
                 .andReturn();
     }
 
+    public Response getWithHeader(String path,String header, Map<String, ?> queryParams) {
+        return RestAssured
+                .given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + header)
+                .queryParams(queryParams == null ? Map.of() : queryParams)
+                .when()
+                .get(baseUrl + path)
+                .andReturn();
+    }
+
     public Response post(String path, Object body) {
         return RestAssured
                 .given()
