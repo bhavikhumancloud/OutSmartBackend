@@ -107,7 +107,7 @@ public class CommunityEndpointTests extends BaseTest {
         String id = context.getAttribute("communityId").toString();
         Response response = api.deleteWithHeader("/be/core/api/v1/community/" + id + "/", getAccessToken(context));
         response.then().log().all();
-        Assert.assertEquals(response.statusCode(), 200); // updated to match API
+        Assert.assertEquals(response.statusCode(), 200);
     }
 
     // -------------------- GEO AREA --------------------
@@ -174,7 +174,7 @@ public class CommunityEndpointTests extends BaseTest {
         Map<String, Object> body = new HashMap<>();
         body.put("name", "Updated_Group_" + System.currentTimeMillis());
         body.put("note", "Updated note for group");
-        body.put("status", "active"); // or "inactive" if API supports
+        body.put("status", "active"); //
         body.put("visibility", "private");
 
         Response response = api.putWithHeader("/be/core/api/v1/group/" + groupId + "/", accessToken, body);
