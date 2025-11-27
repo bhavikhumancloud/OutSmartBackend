@@ -232,7 +232,7 @@ public class CommunityEndpointTests extends BaseTest {
     // -------------------- EMERGENCY --------------------
     @Test(dependsOnMethods = "signInTest", description = "Send emergency notification")
     public void emergencyNotifyTest(ITestContext context) {
-        String emergencyId = "<valid-emergency-id>";
+        String emergencyId = "<emergency-id>";
         Response response = api.getWithHeader("/be/core/api/v1/emergency/" + emergencyId + "/notify/", getAccessToken(context), null);
         response.then().log().all();
         Assert.assertEquals(response.statusCode(), 200);
