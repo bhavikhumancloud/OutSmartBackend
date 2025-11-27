@@ -1,7 +1,7 @@
-# Compiled class file
+# Compiled class files
 *.class
 
-# Log file
+# Log files
 *.log
 
 # BlueJ files
@@ -13,20 +13,67 @@
 # Package Files #
 *.jar
 *.war
-*.nar
 *.ear
+*.nar
 *.zip
 *.tar.gz
 *.rar
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
-replay_pid*
+# Maven / Gradle
+target/
+build/
+!.mvn/wrapper/maven-wrapper.jar
 
+# Eclipse
+.classpath
+.project
+.settings/
+.p2/
 
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+out/
 
-# .idea file
-*.idea/
+# VS Code
+.vscode/
 
-# .Target File
-*.target/
+# OS generated files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# Windows image file caches
+Thumbs.db
+
+# dotenv
+.env
+.env.local
+.env.*.local
+
+# Temporary files
+*.tmp
+*.swp
+*~
+.tmp/
+
+# Test reports
+surefire-reports/
+failsafe-reports/
+
+# Dependency directories
+node_modules/
+
+# Coverage reports
+coverage/
+*.lcov
+
+# JetBrains Rider
+.idea/
+.xml
+
+# Misc
+release.properties
+project.lock.json
