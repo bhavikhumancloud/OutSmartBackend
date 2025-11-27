@@ -76,6 +76,31 @@ public class CommunityEndpointTests extends BaseTest {
     }
 
 
+    @Test(dependsOnMethods = "createCommunityTest", description = "Update an existing community")
+    public void updateCommunityTest(ITestContext context) {
+        String communityId = context.getAttribute("communityId").toString();
+        String accessToken = getAccessToken(context);
+
+        Map<String, Object> body = new HashMap<>();
+        body.put("name", "Updated_Community_" + System.currentTimeMillis());
+        body.put("note", "Updated note for community");
+        body.put("status", "active");
+        body.put("visibility", "public");
+        body.put("polygon", List.of(
+                List.of(4.0, 4.0),
+                List.of(5.0, 5.0),
+                List.of(6.0, 6.0)
+        ));
+
+        Response response = api.putWithHeader("/be/core/api/v1/community/" + communityId + "/", accessToken, body);
+        response.then().log().all();
+
+        Assert.assertEquals(response.statusCode(), 200, "Community update failed");
+
+        // store updated name for future tests
+        context.setAttribute("communityName", body.get("name"));
+    }
+
 
     @Test(dependsOnMethods = "retrieveCommunityTest", description = "Delete a community")
     public void deleteCommunityTest(ITestContext context) {
@@ -139,6 +164,40 @@ public class CommunityEndpointTests extends BaseTest {
         response.then().log().all();
         Assert.assertEquals(response.statusCode(), 200);
     }
+
+    @Test(dependsOnMethods = "createGroupTest", description = "Update an existing group")
+    public void updateGroupTest(ITestContext context) {
+        String groupId = context.getAttribute("groupId").toString();
+        String accessToken = getAccessToken(context);
+
+        // Dynamic update values
+        Map<String, Object> body = new HashMap<>();
+        body.put("name", "Updated_Group_" + System.currentTimeMillis());
+        body.put("note", "Updated note for group");
+        body.put("status", "active"); // or "inactive" if API supports
+        body.put("visibility", "private");
+
+        Response response = api.putWithHeader("/be/core/api/v1/group/" + groupId + "/", accessToken, body);
+        response.then().log().all();
+
+        Assert.assertEquals(response.statusCode(), 200, "Group update failed");
+
+        // Store updated name for future tests
+        context.setAttribute("groupName", body.get("name"));
+    }
+
+    @Test(dependsOnMethods = "updateGroupTest", description = "Delete the updated group")
+    public void deleteGroupTest(ITestContext context) {
+        String groupId = context.getAttribute("groupId").toString();
+        String accessToken = getAccessToken(context);
+
+        Response response = api.deleteWithHeader("/be/core/api/v1/group/" + groupId + "/", accessToken);
+        response.then().log().all();
+
+        Assert.assertEquals(response.statusCode(), 200, "Group deletion failed");
+    }
+
+
 
     @Test(dependsOnMethods = "createGroupTest", description = "List group users")
     public void listGroupUsersTest(ITestContext context) {
