@@ -13,7 +13,6 @@
         <class name="tests.SignIn_SignOutTests"/>
         <class name="tests.EmailVerifyTests"/>
         <class name="tests.SignUpTests"/>
-        <class name="tests.ExampleTest"/>
     </classes>
 </test>
 
