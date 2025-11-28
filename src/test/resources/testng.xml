@@ -1,21 +1,23 @@
 <!-- xml -->
-        <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 
-<suite name="API Test Suite" verbose="1">
+<suite name="API Test Suite" parallel="methods" thread-count="5" verbose="1">
 
-<listeners>
-    <listener class-name="listeners.TestListener"/>
-</listeners>
+    <listeners>
+        <listener class-name="listeners.TestListener"/>
+        <listener class-name="org.testng.reporters.XMLReporter"/>
+        <listener class-name="org.testng.reporters.EmailableReporter"/>
+    </listeners>
 
-<test name="API Tests">
-    <classes>
+    <test name="TestEndpointsParaller">
+        <classes>
 
-        <class name="tests.SignIn_SignOutTests"/>
-        <class name="tests.EmailVerifyTests"/>
-        <class name="tests.SignUpTests"/>
-        <class name="tests.CommunityEndpointTests"/>
+            <class name="tests.SignIn_SignOutTests"/>
+            <class name="tests.EmailVerifyTests"/>
+            <class name="tests.SignUpTests"/>
+            <class name="tests.CommunityEndpointTests"/>
 
-    </classes>
-</test>
+        </classes>
+    </test>
 
 </suite>

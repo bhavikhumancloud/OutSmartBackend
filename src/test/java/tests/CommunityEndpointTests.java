@@ -17,7 +17,7 @@ public class CommunityEndpointTests extends BaseTest {
     }
 
     // -------------------- AUTH --------------------
-    @Test(description = "Sign in user and store access/refresh tokens")
+    @Test(description = "Sign in user and store access and refresh tokens")
     public void signInTest(ITestContext context) {
         Map<String, String> body = Map.of(
                 "identifier", "bhavik.mohod@humancloud.co.in",
@@ -32,7 +32,7 @@ public class CommunityEndpointTests extends BaseTest {
     }
 
     // -------------------- COMMUNITY --------------------
-    @Test( dependsOnMethods = "signInTest", description = "Create a new community")
+    @Test( dependsOnMethods = "signInTest", description = "Create a new community with endpoint POST /be/core/api/v1/community/")
     public void createCommunityTest(ITestContext context) {
         String accessToken = getAccessToken(context);
 
@@ -58,7 +58,7 @@ public class CommunityEndpointTests extends BaseTest {
         context.setAttribute("communityId", communityId);
     }
 
-    @Test(dependsOnMethods = "signInTest", description = "List communities")
+    @Test(dependsOnMethods = "signInTest", description = "fetch the List communities with endpoint GET /be/core/api/v1/community/")
     public void listCommunitiesTest(ITestContext context) {
         Map<String, Integer> queryParams = Map.of("page", 1);
         Response response = api.getWithHeader("/be/core/api/v1/community/", getAccessToken(context), queryParams);
@@ -67,7 +67,7 @@ public class CommunityEndpointTests extends BaseTest {
     }
 
 
-    @Test(priority=2,dependsOnMethods = "createCommunityTest", description = "Retrieve a community")
+    @Test(priority=2,dependsOnMethods = "createCommunityTest", description = "Retrieve a community details based on community ID with endpoint GET /be/core/api/v1/community/{id}/")
     public void retrieveCommunityTest(ITestContext context) {
         String id = context.getAttribute("communityId").toString();
         Response response = api.getWithHeader("/be/core/api/v1/community/" + id + "/", getAccessToken(context), null);
@@ -76,7 +76,7 @@ public class CommunityEndpointTests extends BaseTest {
     }
 
 
-    @Test(dependsOnMethods = "createCommunityTest", description = "Update an existing community")
+    @Test(dependsOnMethods = "createCommunityTest", description = "Update an existing community details based on community id with endpoint PUT /be/core/api/v1/community/{id}/")
     public void updateCommunityTest(ITestContext context) {
         String communityId = context.getAttribute("communityId").toString();
         String accessToken = getAccessToken(context);
@@ -102,7 +102,7 @@ public class CommunityEndpointTests extends BaseTest {
     }
 
 
-    @Test(dependsOnMethods = "retrieveCommunityTest", description = "Delete a community")
+    @Test(dependsOnMethods = "retrieveCommunityTest", description = "Delete a community based on community ID with endpoint DELETE /be/core/api/v1/community/{id}/")
     public void deleteCommunityTest(ITestContext context) {
         String id = context.getAttribute("communityId").toString();
         Response response = api.deleteWithHeader("/be/core/api/v1/community/" + id + "/", getAccessToken(context));
@@ -111,7 +111,7 @@ public class CommunityEndpointTests extends BaseTest {
     }
 
     // -------------------- GEO AREA --------------------
-    @Test(dependsOnMethods = "createCommunityTest", description = "Create a geo area within a community")
+    @Test(dependsOnMethods = "createCommunityTest", description = "Create a geo area within a community with endpoint POST /be/core/api/v1/community/{communityId}/geo-area/")
     public void createGeoAreaTest(ITestContext context) {
         String communityId = context.getAttribute("communityId").toString();
         Map<String, Object> body = new HashMap<>();
