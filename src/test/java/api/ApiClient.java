@@ -1,5 +1,6 @@
 package api;
 
+// java
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -17,6 +18,17 @@ public class ApiClient {
         return RestAssured
                 .given()
                 .contentType(ContentType.JSON)
+                .queryParams(queryParams == null ? Map.of() : queryParams)
+                .when()
+                .get(baseUrl + path)
+                .andReturn();
+    }
+
+    public Response getWithHeader(String path,String header, Map<String, ?> queryParams) {
+        return RestAssured
+                .given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + header)
                 .queryParams(queryParams == null ? Map.of() : queryParams)
                 .when()
                 .get(baseUrl + path)
@@ -44,17 +56,15 @@ public class ApiClient {
                 .andReturn();
     }
 
-
-
-        // GET with auth + query params
-        public Response getWithHeader(String path, String token, Map<String, ?> queryParams) {
-            return RestAssured.given()
-                    .contentType(ContentType.JSON)
-                    .header("Authorization", "Bearer " + token)
-                    .queryParams(queryParams == null ? Map.of() : queryParams)
-                    .get(baseUrl + path)
-                    .andReturn();
-        }
+//        // GET with auth + query params
+//        public Response getWithHeader(String path, String token, Map<String, ?> queryParams) {
+//            return RestAssured.given()
+//                    .contentType(ContentType.JSON)
+//                    .header("Authorization", "Bearer " + token)
+//                    .queryParams(queryParams == null ? Map.of() : queryParams)
+//                    .get(baseUrl + path)
+//                    .andReturn();
+//        }
 
 
         public Response put(String path, Object body) {

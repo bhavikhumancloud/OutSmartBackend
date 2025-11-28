@@ -13,19 +13,25 @@ import java.io.IOException;
 public class ExcelUtil {
 
     private Sheet sheet;
+    private Workbook workbook;
+    private FileInputStream fis;
+    private FileOutputStream fos;
 
     public void ExcelUtils(String excelPath, String sheetName) throws IOException {
-        FileInputStream fis = new FileInputStream(excelPath);
-        Workbook workbook = new XSSFWorkbook(fis);
+        this.fis = new FileInputStream(excelPath);
+        this.workbook = new XSSFWorkbook(fis);
         this.sheet = workbook.getSheet(sheetName);
     }
 
     public void writeExcelFile(String excelPath) throws IOException {
-        FileInputStream fis = new FileInputStream(excelPath);
-        Workbook workbook  = new XSSFWorkbook(fis) ;
-        FileOutputStream fos = new FileOutputStream(excelPath);
+        this.fos = new FileOutputStream(excelPath);
         workbook.write(fos);
+    }
+
+    public void saveExcelFile() throws IOException {
         fos.close();
+        workbook.close();
+
     }
     // -----------------------------
     // Read single cell value
