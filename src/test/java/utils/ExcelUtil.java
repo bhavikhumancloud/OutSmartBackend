@@ -17,7 +17,7 @@ public class ExcelUtil {
     private FileInputStream fis;
     private FileOutputStream fos;
 
-    public void ExcelUtils(String excelPath, String sheetName) throws IOException {
+    public void connectionToExcelFile(String excelPath, String sheetName) throws IOException {
         this.fis = new FileInputStream(excelPath);
         this.workbook = new XSSFWorkbook(fis);
         this.sheet = workbook.getSheet(sheetName);
@@ -56,5 +56,49 @@ public class ExcelUtil {
         }
 
         cell.setCellValue(value);
+    }
+
+    public String writeDataToExcel(int rowNum, int colNum, String value,String excelPath) throws IOException {
+        Row row  = getRow(rowNum);
+       Cell cell = getCell(row,colNum);
+       cell.setCellValue(value);
+        writeExcelFile(excelPath);
+       return getCellData(rowNum,colNum);
+    }
+
+
+    public Row getRow(int rowNum){
+        Row row  = sheet.getRow(rowNum);
+        if(row == null){
+            row = sheet.createRow(rowNum);
+        }
+        return row;
+    }
+
+    public Cell getCell(Row row,int colNum){
+        Cell cell = row.getCell(colNum);
+        if(cell == null){
+            cell = row.createCell(colNum);
+        }
+        return cell;
+    }
+
+
+    public String getCellStringValue(int rowNum, int colNum){
+        try {
+            Row row = sheet.getRow(rowNum);
+            if (row == null) {
+                return null;
+            }
+
+            Cell cell = row.getCell(colNum);
+            if (cell == null) {
+                return null;
+            }
+            return cell.getStringCellValue();
+        }catch (Exception e){
+            e.printStackTrace();
+            return "Exception occurred: " + e.getMessage();
+        }
     }
 }

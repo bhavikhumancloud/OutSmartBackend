@@ -1,28 +1,42 @@
 package tests;
 
 import api.BaseTest;
+import api.Config;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.ITestContext;
 import org.testng.annotations.Test;
+import utils.ExcelUtil;
+import utils.Utils;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
+
+import static sun.security.ssl.SSLLogger.info;
 
 public class SignIn_SignOutTests extends BaseTest {
     String access;
     String refresh;
-
+    ExcelUtil excelutil = new ExcelUtil();
+    Utils utils = new Utils();
+    Logger logger = Logger.getLogger(SignIn_SignOutTests.class.getName());
     @Test(description = "Sign in using POST endpoint /be/iam/api/signin")
-    public void signInTest(ITestContext context) {
+    public void signInTest(ITestContext context) throws IOException {
         try {
+            logger.info("Starting sign in test.");
             String path = "/be/iam/api/signin/";
+            String ExcelFile = System.getProperty("user.dir") + Config.get("excelPath");
+            excelutil.connectionToExcelFile(ExcelFile,"SignUp");
+            String username = excelutil.getCellStringValue(9,1);
+            String password = excelutil.getCellStringValue(9,2);
             Map<String, String> body = Map.of(
-
-                    "identifier", "bhavik.mohod@humancloud.co.in",
-                    "password", "Test@1234"
+                    "identifier", username,
+                    "password", password
             );
 
+            logger.info("Hitting the endpoint");
             Response response = api.post(path, body);
 
             Assert.assertEquals(response.statusCode(), 200, "Expected status code 200");
@@ -35,6 +49,7 @@ public class SignIn_SignOutTests extends BaseTest {
             System.out.println("sign out endpoint response: "+response.asString());
             context.setAttribute("access",response.getBody().jsonPath().get("access"));
             context.setAttribute("refresh",response.getBody().jsonPath().get("refresh"));
+            logger.info("Validations passed, sign in test successful.");
         } catch (Exception e) {
             e.printStackTrace();
             Assert.fail("Exception occurred during sign in test: " + e.getMessage());
@@ -66,14 +81,28 @@ public class SignIn_SignOutTests extends BaseTest {
     public void passwordChangedTest(ITestContext context){
         try{
         String path = "/be/iam/api/password-change/";
+        String ExcelFile = System.getProperty("user.dir") + Config.get("excelPath");
+        excelutil.connectionToExcelFile(ExcelFile,"SignUp");
         String access = context.getAttribute("access").toString();
+        String newPassword = utils.createRandomPassword();
+            System.out.println("New password generated is: "+newPassword);
             Map<String, String> body = new HashMap<>();
-            body.put("current_password", "Test@123");
-            body.put("new_password", "Test@1234");
+            body.put("current_password", excelutil.getCellStringValue(9,2));
+            body.put("new_password", newPassword);
         Response response = api.postWithHeader(path,access,body);
 
         System.out.println("JSON Response for password changes is: "+response.asString());
         Assert.assertEquals(response.statusCode(),200);
+        Assert.assertEquals(response.jsonPath().get("detail"),
+                "Password changed.",
+                "Response message mismatch!");
+
+        if(response.statusCode() ==200){
+            excelutil.writeDataToExcel(9,2,newPassword,ExcelFile);
+            System.out.println("New password updated in excel file successfully.");
+            excelutil.writeExcelFile(ExcelFile);
+            excelutil.saveExcelFile();
+        }
 
         }catch (Exception e){
             e.printStackTrace();

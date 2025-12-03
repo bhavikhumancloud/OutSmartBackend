@@ -16,7 +16,7 @@ public class ExcelReadTest extends BaseTest {
     @Test
     public void testExcelRead() throws IOException {
         // Test implementation goes here
-        excelutil.ExcelUtils(ExcelFile,"SignUp");
+        excelutil.connectionToExcelFile(ExcelFile,"SignUp");
         int romCount = excelutil.getRowCount();
         System.out.println("Total number of rows: " + romCount);
     }
@@ -24,7 +24,7 @@ public class ExcelReadTest extends BaseTest {
     @Test(description = "write the date in excel file")
     public void testExcelWrite() throws IOException {
 
-        excelutil.ExcelUtils(ExcelFile,"SignUp");
+        excelutil.connectionToExcelFile(ExcelFile,"SignUp");
         String cellData = excelutil.getCellData(0,1);
         System.out.println("Cell data at (0,1): " + cellData);
         excelutil.setCellValue(2,0,cellData);
@@ -39,9 +39,21 @@ public class ExcelReadTest extends BaseTest {
 
     @Test
     public void readDataFromExcel() throws IOException {
-        excelutil.ExcelUtils(ExcelFile,"SignUp");
+        excelutil.connectionToExcelFile(ExcelFile,"SignUp");
         String value = excelutil.getCellData(2,0);
         System.out.println("value is: "+value);
+    }
+
+
+    @Test
+    public void writeDataToExcel() throws IOException {
+        try{
+            excelutil.connectionToExcelFile(ExcelFile,"SignUp");
+            String output = excelutil.writeDataToExcel(5,5,"Hello World",ExcelFile);
+            System.out.println("Data written successfully: "+output);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }
 

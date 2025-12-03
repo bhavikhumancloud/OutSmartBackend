@@ -36,7 +36,7 @@ public class CommunityEndpointTests extends BaseTest {
     public void createCommunityTest(ITestContext context) {
         String accessToken = getAccessToken(context);
 
-        String communityName = "OutSmart_" + System.currentTimeMillis(); // dynamic name
+        String communityName = "O utSmart_" + System.currentTimeMillis(); // dynamic name
 
         Map<String, Object> body = new HashMap<>();
         body.put("name", communityName);
